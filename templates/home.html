@@ -1,7 +1,16 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>My Personal Website</h1>
-<p>Hi, this is my personal website.</p>
-</body>
-</html>
+{% extends "template.html" %}
+{% block content %}
+<div class = "jumbo">
+<h2> Home</h2>
+<br/>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div>
+{% endblock %}
