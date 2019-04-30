@@ -1,11 +1,12 @@
 from flask import * 
 import os
+import scrape
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    flash('test')
+    flash(scrape.getTotal('nanoluck'))
     return render_template('home.html')
 
 if __name__ == '__main__':
