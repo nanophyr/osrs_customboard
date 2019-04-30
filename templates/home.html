@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+{% block content %}
+<div class = "myClass">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <meta http-equiv="refresh" content="60">
+    <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div>
+{% endblock %}

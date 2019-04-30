@@ -1,6 +1,13 @@
 import urllib
 from bs4 import BeautifulSoup
 
+def ripToLines():
+    # kill all script and style elements
+    for script in soup(["script", "style"]):
+        script.extract()    # rip it out
+    text = soup.get_text().splitlines()
+    return text
+
 def find_between( s, first, last):
     try:
         start = s.index(first) + len(first)
@@ -9,18 +16,23 @@ def find_between( s, first, last):
     except ValueError:
         return ""
 
-url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=nanoluck"
-html = urllib.urlopen(url).read()
-soup = BeautifulSoup(html,features="html.parser")
+def ripToLines(soup):
+    # kill all script and style elements
+    for script in soup(["script", "style"]):
+        script.extract()    # rip it out
+    text = soup.get_text().splitlines()
+    return text
 
-# kill all script and style elements
-for script in soup(["script", "style"]):
-    script.extract()    # rip it out
+
+#returns total level for given user
+def getTotal(user):
+    url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + user
+    html = urllib.urlopen(url).read()
+    soup = BeautifulSoup(html,features="html.parser")
+    text = ripToLines(soup)
+    return find_between(str(text[0]), "," , ",")
 
 
-text = soup.get_text().splitlines()
 #prints rank level exp
 #print str(text[0])
 
-#gets total level line 
-print find_between(str(text[0]), "," , ",")
